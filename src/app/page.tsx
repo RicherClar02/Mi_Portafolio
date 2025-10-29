@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, FormEvent, FC, useEffect } from 'react';
-import { Github, Mail, Phone, Code, Server, Zap, Send, Trophy, Users, Globe, LucideIcon, Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { Github, Mail, Phone, Code, Server, Zap, Send, Trophy, Users, Globe, LucideIcon, Loader2, CheckCircle, XCircle, Download } from 'lucide-react';
 
 // --- Interfaces para Tipado ---
 
@@ -55,6 +55,7 @@ const userData = {
   phone: "317 450 6405",
   email: "brayanclarosdiaz@gmail.com",
   github: "https://github.com/RicherClar02",
+  cvUrl: "https://drive.google.com/file/d/13wLpnEJcttpLSPqfBlGGxC28Te4reiZ1/view?usp=sharing", // Ruta a tu archivo PDF
   // ! **ESPACIO PARA TU FOTO**
   profileImageUrl: "/portafolio.jpg", 
 };
@@ -164,6 +165,8 @@ const styles = {
         boxShadow: isDisabled ? 'none' : (isHover ? `0 15px 25px -5px ${styles.shadowColor}` : 'none'),
         border: 'none',
         cursor: isDisabled ? 'not-allowed' : 'pointer',
+        textDecoration: 'none',
+        display: 'inline-block',
     }),
     getButtonSecondaryStyle: (isHover: boolean) => ({
         display: 'flex',
@@ -177,6 +180,21 @@ const styles = {
         transition: 'all 0.3s',
         backgroundColor: styles.secondaryDark,
         cursor: 'pointer',
+        textDecoration: 'none',
+    }),
+    getButtonSuccessStyle: (isHover: boolean) => ({
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        border: `2px solid ${isHover ? '#10b981' : '#059669'}`,
+        color: isHover ? '#10b981' : '#34d399',
+        fontWeight: '600',
+        padding: '0.75rem 2rem',
+        borderRadius: '0.75rem',
+        transition: 'all 0.3s',
+        backgroundColor: styles.secondaryDark,
+        cursor: 'pointer',
+        textDecoration: 'none',
     }),
 };
 
@@ -251,6 +269,7 @@ const AnimatedTitle: FC<{ text: string }> = ({ text }) => {
 const HeroSection: FC = () => {
     const [isPrimaryHover, setIsPrimaryHover] = useState(false);
     const [isSecondaryHover, setIsSecondaryHover] = useState(false);
+    const [isDownloadHover, setIsDownloadHover] = useState(false);
     const isMobile = useIsMobile(); 
 
     const heroContainerStyles: React.CSSProperties = {
@@ -268,6 +287,7 @@ const HeroSection: FC = () => {
         display: 'flex', 
         gap: '1.5rem',
         justifyContent: isMobile ? 'center' : 'flex-start',
+        flexWrap: 'wrap' as const,
     };
 
     const imageColumnStyles: React.CSSProperties = {
@@ -278,6 +298,11 @@ const HeroSection: FC = () => {
         padding: '2rem',
         order: isMobile ? -1 : 0, 
     };
+
+    const handleDownloadCV = () => {
+        window.open(userData.cvUrl, '_blank', 'noopener,noreferrer');
+    };
+
 
     return (
         <section id="inicio" style={{
@@ -331,6 +356,20 @@ const HeroSection: FC = () => {
                             <Send size={20} />
                             Contactar Ahora
                         </a>
+                        {/* NUEVO BOTÓN PARA DESCARGAR CV */}
+                        <button
+                            onClick={handleDownloadCV}
+                            style={{
+                                ...styles.getButtonSuccessStyle(isDownloadHover),
+                                border: 'none',
+                                fontFamily: 'inherit'
+                            }}
+                            onMouseEnter={() => setIsDownloadHover(true)}
+                            onMouseLeave={() => setIsDownloadHover(false)}
+                        >
+                            <Download size={20} />
+                            Ver CV
+                        </button>
                     </div>
                 </div>
 
@@ -356,6 +395,8 @@ const HeroSection: FC = () => {
         </section>
     );
 };
+
+// ... (el resto del código se mantiene igual, solo modifiqué HeroSection)
 
 const StatCard: FC<{ icon: LucideIcon, value: string, label: string, color: string }> = ({ icon: Icon, value, label, color }) => (
     <div style={{
