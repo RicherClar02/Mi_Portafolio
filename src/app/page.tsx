@@ -61,8 +61,8 @@ const userData = {
 
 // Logros cuantificables para impresionar
 const keyStats = [
-    { icon: Trophy, value: "4+", label: "Años de Experiencia Profesional", color: '#fbbf24' }, // amber-400
-    { icon: Globe, value: "20+", label: "Proyectos Implementados (Java, React, Node)", color: '#3b82f6' }, // blue-500
+    { icon: Trophy, value: "2+", label: "Años de Experiencia Profesional", color: '#fbbf24' }, // amber-400
+    { icon: Globe, value: "10+", label: "Proyectos Implementados (Java, React, Node)", color: '#3b82f6' }, // blue-500
     { icon: Users, value: "99.9%", label: "Uptime Promedio en Microservicios", color: '#10b981' }, // emerald-500
     { icon: Code, value: "Python & Java", label: "Fuerte Fundamento Algorítmico", color: '#ef4444' }, // red-500
 ];
